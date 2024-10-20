@@ -1,0 +1,60 @@
+body {
+    background-color: #0a0a23;
+  }
+  
+h1 {
+  color: #ffffff;
+}
+
+#text {
+  background-color: #0a0a23;
+  color: #ffffff;
+  padding: 10px;
+  height: 40px;
+}
+
+#game {
+  max-width: 500px;
+  max-height: 400px;
+  background-color: #ffffff;
+  color: #ffffff;
+  margin: 30px auto 0px;
+  padding: 10px;
+}
+
+#control {
+  border: 1px solid #0a0a23;
+  padding: 5px;
+  color: #0a0a23;
+}
+
+#stats {
+  /*display:none;*/
+  border: 1px solid #0a0a23;
+  padding: 5px;
+  color: #0a0a23;
+  visibility: hidden;
+}
+
+.stat {
+  padding-right: 10px;
+}
+
+button {
+  cursor: pointer;
+  display: block;
+  color: #0a0a23;
+  background-color: #feac32;
+  width: 500px;
+  background-image: linear-gradient(#fecc4c, #ffac33);
+  border: 3px solid #feac32;
+  padding: 3px;
+  margin-bottom: 3px;
+  margin-top: 3px;
+  text-align: left;
+  height: 40px;
+}
+
+#drag1 {
+  color :#ffffff
+}
