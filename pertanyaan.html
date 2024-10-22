@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="./styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+  <title>Latihan Soal Olahraga</title>
+</head>
+<body>
+  <div id="game">
+
+    <div id="stats" style="display:none;">
+      <span class="stat">Soal: <strong><span id="soalText">1</span></strong></span>
+      <span class="stat">Benar: <strong><span id="benarText">0</span></strong></span>
+      <span class="stat">Salah: <strong><span id="salahText">0</span></strong></span>
+    </div>
+
+    <div id="text">
+      Mari Latihan Olahraga
+    </div>
+
+    <div id="controls">
+      <button id="button1">Lanjut Soal</button>
+      <button id="button2" style="display:none;"></button>
+      <button id="button3" style="display:none;"></button>
+      <button id="button4" style="display:none;"></button>
+    </div>
+
+    <div id="drag-drop-container" style="display:none;">
+      <p id="textseret">Seret jawaban yang benar ke area berikut:</p>
+      <div id="drop-zone" ondrop="drop(event)" ondragover="allowDrop(event)">
+        <p></p>
+      </div>
+
+      <div id="drag-items">
+        <span id="drag1" draggable="true" ondragstart="drag(event)">Jawaban 1</span>
+        <span id="drag2" draggable="true" ondragstart="drag(event)">Jawaban 2</span>
+        <span id="drag3" draggable="true" ondragstart="drag(event)">Jawaban 3</span>
+      </div>
+    </div>
+
+  </div>
+  <div class="lari" id="lari">
+    <img src="https://cdn-icons-png.flaticon.com/512/1/1837.png" alt="Moving image">
+  </div>
+  <script src="./script.js"></script>
+</body>
+<footer>
+  18222016 Axelius Davin
+</footer>
+</html>

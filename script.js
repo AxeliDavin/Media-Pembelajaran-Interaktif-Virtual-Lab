@@ -1,15 +1,111 @@
-let totalsoal = 1;
+const button1 = document.getElementById("button1");
+const button2 = document.getElementById("button2");
+const button3 = document.getElementById("button3");
+const button4 = document.getElementById("button4");
+const text = document.getElementById("text");
+const soalText = document.getElementById("soalText");
+const benarText = document.getElementById("benarText");
+const salahText = document.getElementById("salahText");
+const drag1 = document.getElementById("drag1");
+const drag2 = document.getElementById("drag2");
+const drag3 = document.getElementById("drag3");
+const dropzone = document.getElementById("drop-zone");
+const textseret = document.getElementById("textseret");
+
+let totalsoal = 0;
 let totalbenar = 0;
 let totalsalah = 0;
 
-const button1 = document.querySelector('#button1');
-const button2 = document.querySelector("#button2");
-const button3 = document.querySelector("#button3");
-const button4 = document.querySelector("#button4");
-const text = document.querySelector("#text");
-const soalText = document.querySelector("#soalText");
-const benarText = document.querySelector("#benarText");
-const salahText = document.querySelector("#salahText");
+/*loginForm.addEventListener('submit', function(event) {
+  event.preventDefault();
+
+  const username = document.getElementById('username').value;
+  const password = document.getElementById('password').value;
+
+  if (username && password) {
+    window.location.href = "pertanyaan.html"; 
+  }
+});*/
+
+button1.onclick = startQuiz;
+
+function startQuiz() {
+  button2.style.display = "block";
+  button3.style.display = "block";
+  button4.style.display = "block";
+  stats.style.display = "block";
+  totalsoal = 0;
+  totalbenar = 0;
+  totalsalah = 0;
+  update(locations[0]);
+}
+
+button1.onclick = startQuiz;
+
+function update(location) {
+  if (location.dragAnswer) {
+    // Show drag-drop container for drag and drop questions
+    document.getElementById('drag-drop-container').style.display = 'block';
+    drag1.innerText = location["button text"][0];
+    drag2.innerText = location["button text"][1];
+    drag3.innerText = location["button text"][2];
+    button1.style.display = button2.style.display = button3.style.display = button4.style.display = 'none';
+  } else {
+    document.getElementById('drag-drop-container').style.display = 'none';
+    button1.innerText = location["button text"][0];
+    button2.innerText = location["button text"][1];
+    button3.innerText = location["button text"][2];
+    button4.innerText = location["button text"][3];
+    button1.onclick = location["button functions"][0];
+    button2.onclick = location["button functions"][1];
+    button3.onclick = location["button functions"][2];
+    button4.onclick = location["button functions"][3];
+  }
+  text.innerHTML = location.text;
+}
+
+function benar() {
+  totalbenar++;
+  totalsoal++;
+  updateScore();
+  nextQuestion();
+}
+
+function salah() {
+  totalsalah++;
+  totalsoal++; 
+  updateScore();
+  nextQuestion();
+}
+
+function updateScore() {
+  soalText.innerText = totalsoal + 1;
+  benarText.innerText = totalbenar; 
+  salahText.innerText = totalsalah; 
+}
+
+function nextQuestion() {
+  if (totalsoal < locations.length) {
+    if (totalsoal > 4){
+      dropzone.innerText ="";
+    }
+    update(locations[totalsoal]);
+  } else {
+    text.innerHTML = "Quiz selesai! <br> Benar: " + totalbenar + ", Salah: " + totalsalah;
+    button1.style.display = 'block';
+    /*button2.style.display = button3.style.display = button4.style.display = 'none';*/
+    button1.innerText = "Mengulang";
+    dropzone.style.display = 'none';
+    textseret.style.display = 'none';
+    button1.onclick = startQuiz;
+    totalsoal = 0;
+    totalbenar = 0;
+    totalsalah = 0;
+    updateScore();
+    stats.style.display = "none";
+  }
+}
+
 
 const locations = [
   {
@@ -38,71 +134,56 @@ const locations = [
   },
   {
     name: "soal5",
-      "button text": ["Push-up", "Squat", "Pull-up", "Peregangan"],
+    "button text": ["Push-up", "Squat", "Pull-up", "Peregangan"],
     "button functions":  [salah, salah, salah, benar],
     text: "Berikut adalah jenis-jenis latihan kekuatan, kecuali:"
   },
   {
-    name: "selesai",
-    "button text": ["Mantab", "Mantab", "Mantab", "Mantab"],
-    "button functions": [restart, restart, restart, restart],
-    text: "Akhir dari latihan olahraga"
+    name: "soal6",
+    "button text": ["Sprint", "Tenis", "Endurance", ""],
+    "button functions": [null, null, null, null],
+    text: "Olahraga yang dilakukan dengan memukul bola menggunakan raket disebut?",
+    dragAnswer: "Tenis",
+  },
+  {
+    name: "soal7",
+    "button text": ["Sprint", "Tenis", "Endurance", ""],
+    "button functions": [null, null, null, null],
+    text: "Nomor lari terpendek dalam cabang atletik disebut?",
+    dragAnswer: "Sprint",
+  },
+  {
+    name: "soal8",
+    "button text": ["Sprint", "Tenis", "Endurance", ""],
+    "button functions": [null, null, null, null],
+    text: "Istilah untuk latihan fisik yang meningkatkan daya tahan otot disebut?",
+    dragAnswer: "Endurance",
   }
 ];
 
-// initialize buttons
-button1.onclick = soal1;
-button2.onclick = soal1;
-button3.onclick = soal1;
-button4.onclick = soal1;
-
-function update(location) {
-  button1.innerText = location["button text"][0];
-  button2.innerText = location["button text"][1];
-  button3.innerText = location["button text"][2];
-  button4.innerText = location["button text"][3];
-  button1.onclick = location["button functions"][0];
-  button2.onclick = location["button functions"][1];
-  button3.onclick = location["button functions"][2];
-  button4.onclick = location["button functions"][3];
-  text.innerHTML = location.text;
+// Drag and Drop Functions
+function allowDrop(ev) {
+  ev.preventDefault();
 }
 
-function benar(){
-  if (totalsoal == 5){
-    update(locations[5]);
+function drag(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+
+function drop(ev) {
+  ev.preventDefault();
+  const data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data)); 
+  checkDragAnswer();
+}
+
+function checkDragAnswer() {
+  const dropZone = document.getElementById("drop-zone");
+  const droppedItem = dropZone.querySelector("span");
+  
+  if (droppedItem && droppedItem.innerText === locations[totalsoal].dragAnswer) {
+    benar();
+  } else {
+    salah();
   }
-  totalbenar +=1;
-  totalsoal +=1;
-  salahText.innerText = totalsalah;
-  benarText.innerText = totalbenar;
-  soalText.innerText = totalsoal;
-  update(locations[totalsoal-1]);
-}
-
-function salah(){
-  if (totalsoal == 5){
-    update(locations[5]);
-  }
-  totalsalah +=1;
-  totalsoal +=1;
-  salahText.innerText = totalsalah;
-  benarText.innerText = totalbenar;
-  soalText.innerText = totalsoal;
-  update(locations[totalsoal-1]);
-}
-
-function soal1(){
-  document.getElementById("stats").style.visibility = "visible";
-  update(locations[0]);
-}
-
-function restart() {
-  totalsoal = 1;
-  totalbenar = 0;
-  totalsalah = 0;
-  salahText.innerText = totalbenar;
-  benarText.innerText = totalsalah;
-  soalText.innerText = totalsoal;
-  update(locations[0]);;
 }
