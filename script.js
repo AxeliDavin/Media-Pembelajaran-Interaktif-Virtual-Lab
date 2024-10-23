@@ -112,7 +112,6 @@ function nextQuestion() {
   } else {
     text.innerHTML = "Quiz selesai! <br> Benar: " + totalbenar + ", Salah: " + totalsalah;
     button1.style.display = 'block';
-    /*button2.style.display = button3.style.display = button4.style.display = 'none';*/
     button1.innerText = "Mengulang";
     dropzone.style.display = 'none';
     textseret.style.display = 'none';

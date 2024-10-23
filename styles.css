@@ -2,6 +2,7 @@ body {
   background-color: #E6E9EE;
   font-family: "Poppins", Arial, sans-serif;
 } 
+
 h1{
   color: #333333;
   text-align: center;
@@ -50,12 +51,8 @@ button:hover {
 
 #game {
   max-width: 500px;
-  max-height: 400px;
+  max-height: 1000px;
   background-color: #ffffff;
-  margin: 30px auto;
-  padding: 10px;
-  background-color: #ffffff;
-  max-width: 500px;
   padding: 20px;
   margin: 100px auto;
   border-radius: 10px;
@@ -63,7 +60,7 @@ button:hover {
 }
 
 @media (max-width: 600px) {
-  #login-screen, #game {
+  #login-screen, #game, #drawingCanvas, #drop-zone {
     max-width: 90%;
   }
 }
