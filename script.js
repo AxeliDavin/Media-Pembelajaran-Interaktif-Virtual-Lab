@@ -37,6 +37,7 @@ function startQuiz() {
   totalsoal = 0;
   totalbenar = 0;
   totalsalah = 0;
+  resetDragDrop();
   update(locations[0]);
 }
 
@@ -44,14 +45,17 @@ button1.onclick = startQuiz;
 
 function update(location) {
   if (location.dragAnswer) {
-    // Show drag-drop container for drag and drop questions
     document.getElementById('drag-drop-container').style.display = 'block';
+    textseret.style.display = 'block';
+    dropzone.style.display = 'block';
     drag1.innerText = location["button text"][0];
     drag2.innerText = location["button text"][1];
     drag3.innerText = location["button text"][2];
     button1.style.display = button2.style.display = button3.style.display = button4.style.display = 'none';
   } else {
     document.getElementById('drag-drop-container').style.display = 'none';
+    textseret.style.display = 'none';
+    dropzone.style.display = 'none';
     button1.innerText = location["button text"][0];
     button2.innerText = location["button text"][1];
     button3.innerText = location["button text"][2];
@@ -161,7 +165,6 @@ const locations = [
   }
 ];
 
-// Drag and Drop Functions
 function allowDrop(ev) {
   ev.preventDefault();
 }
@@ -186,4 +189,10 @@ function checkDragAnswer() {
   } else {
     salah();
   }
+}
+function resetDragDrop() {
+  dropzone.innerHTML = "<p></p>";
+  document.getElementById('drag-items').appendChild(drag1);
+  document.getElementById('drag-items').appendChild(drag2);
+  document.getElementById('drag-items').appendChild(drag3);
 }
