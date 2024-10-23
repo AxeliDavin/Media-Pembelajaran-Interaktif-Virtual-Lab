@@ -22,17 +22,6 @@ let totalsoal = 0;
 let totalbenar = 0;
 let totalsalah = 0;
 
-/*loginForm.addEventListener('submit', function(event) {
-  event.preventDefault();
-
-  const username = document.getElementById('username').value;
-  const password = document.getElementById('password').value;
-
-  if (username && password) {
-    window.location.href = "pertanyaan.html"; 
-  }
-});*/
-
 button1.onclick = startQuiz;
 
 function startQuiz() {
@@ -262,4 +251,9 @@ function checkCanvasDrawing() {
 
 function clearCanvas() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+}
+
+function handleLogin(event) {
+  event.preventDefault();
+  window.location.href = 'pertanyaan.html';
 }

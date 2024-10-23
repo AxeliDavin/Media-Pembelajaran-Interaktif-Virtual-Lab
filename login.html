@@ -12,7 +12,7 @@
     <h1>Latihan Olahraga BRO</h1>
   </div>
   <div id="login-screen">
-    <form id="loginForm">
+    <form id="loginForm" onsubmit="handleLogin(event)">
       <h2>Login</h2>
       <label for="username">Username</label>
       <input type="text" id="username" name="username" required placeholder="Enter your username">
@@ -20,12 +20,14 @@
       <label for="password">Password</label>
       <input type="password" id="password" name="password" required placeholder="Enter your password">
       <br><br>
-      <button type="submit" onclick="window.location.href='pertanyaan.html';">Login</button>
+      <button type="submit">Login</button>
     </form>
   </div>
   <script src="./script.js"></script>
 </body>
 <footer>
-  18222016 Axelius Davin
+  <p>
+    18222016 Axelius Davin
+  </p>
 </footer>
 </html>

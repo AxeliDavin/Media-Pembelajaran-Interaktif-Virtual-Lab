@@ -60,7 +60,7 @@ button:hover {
 }
 
 @media (max-width: 600px) {
-  #login-screen, #game, #drawingCanvas, #drop-zone {
+  #login-screen, #game, #drawingCanvas {
     max-width: 90%;
   }
 }
