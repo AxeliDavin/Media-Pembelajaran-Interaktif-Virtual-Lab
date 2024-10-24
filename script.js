@@ -305,6 +305,27 @@ clearCanvasButton.addEventListener('click', () => {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
 });
 
+canvas.addEventListener('touchstart', (e) => {
+  isDrawing = true;
+  const touch = e.touches[0];
+  ctx.beginPath();
+  ctx.moveTo(touch.clientX - canvas.getBoundingClientRect().left, touch.clientY - canvas.getBoundingClientRect().top);
+  e.preventDefault(); // Prevent scrolling
+});
+
+canvas.addEventListener('touchmove', (e) => {
+  if (isDrawing) {
+    const touch = e.touches[0];
+    ctx.lineTo(touch.clientX - canvas.getBoundingClientRect().left, touch.clientY - canvas.getBoundingClientRect().top);
+    ctx.stroke();
+  }
+  e.preventDefault(); // Prevent scrolling
+});
+
+canvas.addEventListener('touchend', () => {
+  isDrawing = false;
+});
+
 function checkCanvasDrawing() {
   const canvasData = ctx.getImageData(0, 0, canvas.width, canvas.height);
   let hasDrawing = false;
