@@ -60,7 +60,7 @@ button:hover {
 }
 
 @media (max-width: 600px) {
-  #login-screen, #game, #drawingCanvas {
+  #login-screen, #game, #drawingCanvas, #drawingCanvas1, #drawingCanvas2 {
     max-width: 90%;
   }
 }
@@ -135,4 +135,21 @@ footer {
   width: "400"; 
   height: "200" ;
   border:1px solid #333;
+}
+
+#canvas-container-two {
+  margin: 20px 0;
+  text-align: center;
+}
+
+#canvas-container-two div {
+  display: inline-block;
+  margin: 20px;
+}
+
+#drawingCanvas1, #drawingCanvas2 {
+  cursor: crosshair;
+  width: "400"; 
+  height: "200";
+  border: 1px solid #333;
 }
