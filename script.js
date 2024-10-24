@@ -224,9 +224,48 @@ function drag(ev) {
 function drop(ev) {
   ev.preventDefault();
   const data = ev.dataTransfer.getData("text");
-  ev.target.appendChild(document.getElementById(data)); 
+  ev.target.appendChild(document.getElementById(data));
   checkDragAnswer();
 }
+
+// Mobile-friendly touch drag-and-drop handlers
+let draggedElement = null;
+
+function touchStartHandler(e) {
+  draggedElement = e.target;
+  e.target.style.opacity = "0.5";  // For visual feedback during dragging
+}
+
+function touchMoveHandler(e) {
+  e.preventDefault(); // Prevent the default scroll behavior
+  const touchLocation = e.targetTouches[0];
+  draggedElement.style.position = "absolute";
+  draggedElement.style.left = touchLocation.pageX - 50 + "px";
+  draggedElement.style.top = touchLocation.pageY - 50 + "px";
+}
+
+function touchEndHandler(e) {
+  const dropZone = document.elementFromPoint(
+    e.changedTouches[0].clientX,
+    e.changedTouches[0].clientY
+  );
+  
+  if (dropZone && dropZone.id === "drop-zone") {
+    dropZone.appendChild(draggedElement);
+    checkDragAnswer();
+  }
+  
+  draggedElement.style.opacity = "1";  // Restore opacity after drop
+  draggedElement = null;
+}
+
+// Add event listeners for touch devices
+drag1.addEventListener("touchstart", touchStartHandler, { passive: true });
+drag2.addEventListener("touchstart", touchStartHandler, { passive: true });
+drag3.addEventListener("touchstart", touchStartHandler, { passive: true });
+
+document.addEventListener("touchmove", touchMoveHandler, { passive: false });
+document.addEventListener("touchend", touchEndHandler, { passive: true });
 
 function checkDragAnswer() {
   const dropZone = document.getElementById("drop-zone");
@@ -278,10 +317,8 @@ function checkCanvasDrawing() {
   }
 
   if (hasDrawing) {
-    alert("Drawing detected! You can proceed.");
     benar();
   } else {
-    alert("No drawing found. Please try again.");
     salah();
   }
 }

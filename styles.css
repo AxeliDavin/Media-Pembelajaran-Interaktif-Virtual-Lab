@@ -78,7 +78,7 @@ button:hover {
 
 @keyframes move {
   0% { transform: translateX(0); }
-  50% { transform: translateX(100px); }
+  50% { transform: translateX(75px); }
   100% { transform: translateX(0); }
 }
 
@@ -132,8 +132,8 @@ footer {
 }
 
 #drawingCanvas{
-  width: "400"; 
-  height: "200" ;
+  width: 400 px; 
+  height: 200 px;
   border:1px solid #333;
 }
 
