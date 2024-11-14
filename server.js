@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const bcrypt = require('bcryptjs');
 const pg = require('pg');
 const app = express();
+require('dotenv').config();
 
 const { Pool } = pg;
 
@@ -135,3 +136,5 @@ app.post('/update-score', (req, res) => {
 app.listen(process.env.PORT, () => {
     console.log('listening on port 3000.....');
 });
+
+module.exports = app;
