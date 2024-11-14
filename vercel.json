@@ -1,19 +1,16 @@
 {
-    "projects": {
-      "frontend": {
-        "src": "./public",
-        "use": "@vercel/static-build"
-      },
-      "backend": {
-        "src": "./backend",
+    "version": 2,
+    "builds": [
+      {
+        "src": "./public/index.js",
         "use": "@vercel/node"
       }
-    },
-    "build": {
-      "env": {
-        "DATABASE_URL": "https://xhphrwsevphssghxuxvk.supabase.co",
-        "OTHER_ENV_VARS": "other-env-values"
+    ],
+    "routes": [
+      {
+        "src": "/(.*)",
+        "dest": "/"
       }
-    }
+    ]
   }
   
