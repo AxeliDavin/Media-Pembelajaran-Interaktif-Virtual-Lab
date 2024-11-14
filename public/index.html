@@ -2,17 +2,17 @@
 <html lang="en">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="./styles.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
   <title>Latihan Soal Olahraga</title>
 </head>
+<div id="judul">
+  <h1>Latihan Olahraga BRO</h1>
+</div>
 <body>
-  <div id="judul">
-    <h1>Latihan Olahraga BRO</h1>
-  </div>
   <div id="login-screen">
-    <form id="loginForm" onsubmit="handleLogin(event)">
+    <form id="loginForm">
       <h2>Login</h2>
       <label for="username">Username</label>
       <input type="text" id="username" name="username" required placeholder="Enter your username">
@@ -20,10 +20,11 @@
       <label for="password">Password</label>
       <input type="password" id="password" name="password" required placeholder="Enter your password">
       <br><br>
-      <button type="submit">Login</button>
+      <button type="submit" id="submitlogin">Login</button>
     </form>
+    <p>Don't have an account? <a href="/register">Register here</a></p>
   </div>
-  <script src="./script.js"></script>
+  <script src="index.js"></script>
 </body>
 <footer>
   <p>

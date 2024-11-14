@@ -23,11 +23,79 @@ const textgambar2 = document.getElementById('selectCanvas2');
 const ctx1 = canvas1.getContext('2d');
 const ctx2 = canvas2.getContext('2d');
 const doublecanvas = document.getElementById('canvas-container-two');
+const displayusername = document.getElementById('displayusername');
+const buttonlogout = document.getElementById('buttonlogout');
 
-let isDrawing = false;  
 let totalsoal = 0;
 let totalbenar = 0;
 let totalsalah = 0;
+
+window.onload = () => {
+  if (!sessionStorage.username) {
+      location.href = '/index';
+  } else {
+      let totalQuestions = parseInt(sessionStorage.totalQuestions || '0');
+      if (totalQuestions > 0) {
+          let correctAnswers = parseInt(sessionStorage.correctAnswers || '0');
+          let wrongAnswers = parseInt(sessionStorage.wrongAnswers || '0');
+          benarText.innerText = correctAnswers;
+          salahText.innerText = wrongAnswers;
+          soalText.innerText = totalQuestions + 1;
+          totalsoal = totalQuestions;
+          totalbenar = correctAnswers;
+          totalsalah = wrongAnswers;
+          button2.style.display = "block";
+          button3.style.display = "block";
+          button4.style.display = "block";
+          stats.style.display = "block";
+
+          update(locations[totalQuestions]);
+      } else {
+        button2.style.display = "block";
+        button3.style.display = "block";
+        button4.style.display = "block";
+        stats.style.display = "block";
+        update(locations[0]);
+      }
+  }
+};
+
+buttonlogout.onclick = () => {
+  const scoreData = {
+      username: sessionStorage.username,
+      totalQuestions: totalsoal,
+      correctAnswers: totalbenar,
+      wrongAnswers: totalsalah
+  };
+
+  buttonlogout.disabled = true;
+
+  fetch('/update-score', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(scoreData)
+  })
+  .then(response => response.json())
+  .then(data => {
+      if (data.success) {
+          sessionStorage.clear(); 
+          location.href = '/index'; 
+      } else {
+          alert('Error updating score. Please try again.');
+      }
+  })
+  .catch(error => {
+      console.error('Error:', error);
+      alert('Failed to update score. Please try again later.');
+  })
+  .finally(() => {
+      buttonlogout.disabled = false;
+  });
+};
+
+displayusername.innerText = sessionStorage.username;
+
+let isDrawing = false;  
 
 button1.onclick = startQuiz;
 
@@ -98,6 +166,9 @@ function benar() {
   totalbenar++;
   totalsoal++;
   updateScore();
+  sessionStorage.totalQuestions = totalsoal;
+  sessionStorage.correctAnswers = totalbenar;
+  sessionStorage.wrongAnswers = totalsalah;
   nextQuestion();
 }
 
@@ -105,8 +176,12 @@ function salah() {
   totalsalah++;
   totalsoal++; 
   updateScore();
+  sessionStorage.totalQuestions = totalsoal;
+  sessionStorage.correctAnswers = totalbenar;
+  sessionStorage.wrongAnswers = totalsalah;
   nextQuestion();
 }
+
 
 function updateScore() {
   soalText.innerText = totalsoal + 1;
@@ -228,20 +303,17 @@ function drop(ev) {
   checkDragAnswer();
 }
 
-// Mobile-friendly touch drag-and-drop handlers
 let draggedElement = null;
 
 function touchStartHandler(e) {
   draggedElement = e.target;
-  e.target.style.opacity = "0.5";  // For visual feedback during dragging
+  e.target.style.opacity = "0.5";  
 }
 
 function touchMoveHandler(e) {
-  e.preventDefault(); // Prevent the default scroll behavior
+  e.preventDefault();
   const touchLocation = e.targetTouches[0];
-  draggedElement.style.position = "absolute";
-  draggedElement.style.left = touchLocation.pageX - 50 + "px";
-  draggedElement.style.top = touchLocation.pageY - 50 + "px";
+
 }
 
 function touchEndHandler(e) {
@@ -255,11 +327,9 @@ function touchEndHandler(e) {
     checkDragAnswer();
   }
   
-  draggedElement.style.opacity = "1";  // Restore opacity after drop
   draggedElement = null;
 }
 
-// Add event listeners for touch devices
 drag1.addEventListener("touchstart", touchStartHandler, { passive: true });
 drag2.addEventListener("touchstart", touchStartHandler, { passive: true });
 drag3.addEventListener("touchstart", touchStartHandler, { passive: true });
@@ -310,7 +380,7 @@ canvas.addEventListener('touchstart', (e) => {
   const touch = e.touches[0];
   ctx.beginPath();
   ctx.moveTo(touch.clientX - canvas.getBoundingClientRect().left, touch.clientY - canvas.getBoundingClientRect().top);
-  e.preventDefault(); // Prevent scrolling
+  e.preventDefault(); 
 });
 
 canvas.addEventListener('touchmove', (e) => {
@@ -319,7 +389,7 @@ canvas.addEventListener('touchmove', (e) => {
     ctx.lineTo(touch.clientX - canvas.getBoundingClientRect().left, touch.clientY - canvas.getBoundingClientRect().top);
     ctx.stroke();
   }
-  e.preventDefault(); // Prevent scrolling
+  e.preventDefault(); 
 });
 
 canvas.addEventListener('touchend', () => {

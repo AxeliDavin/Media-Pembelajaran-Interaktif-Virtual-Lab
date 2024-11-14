@@ -9,8 +9,9 @@
 </head>
 <body>
   <div id="game">
-
+    
     <div id="stats" style="display:none;">
+      <span>Username: <strong><span id="displayusername">Username</span></strong></span><br>
       <span class="stat">Soal: <strong><span id="soalText">1</span></strong></span>
       <span class="stat">Benar: <strong><span id="benarText">0</span></strong></span>
       <span class="stat">Salah: <strong><span id="salahText">0</span></strong></span>
@@ -58,10 +59,15 @@
     </div>
     
   </div>
+
+  <form id="logout">
+    <button type="submit" id="buttonlogout">Logout</button>
+  </form> 
+
   <div class="lari" id="lari">
     <img src="https://cdn-icons-png.flaticon.com/512/1/1837.png" alt="Moving image">
   </div>
-  <script src="./script.js"></script>
+  <script src="pertanyaan.js"></script>
 </body>
 <footer>
   <p>
