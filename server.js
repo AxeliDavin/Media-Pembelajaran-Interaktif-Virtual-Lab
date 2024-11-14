@@ -49,7 +49,7 @@ app.post('/register-user', (req, res) => {
 
     bcrypt.hash(password, 10)
         .then(hashedPassword => {
-            db('users')
+            pool('users')
                 .where({ username })
                 .first()
                 .then(existingUser => {
@@ -57,7 +57,7 @@ app.post('/register-user', (req, res) => {
                         return res.status(400).json('Username already exists');
                     }
 
-                    db('users')
+                    pool('users')
                         .insert({ username, password: hashedPassword })
                         .returning(['username'])
                         .then(data => {
@@ -86,7 +86,7 @@ app.post('/login-user', (req, res) => {
         return res.status(400).json('Fill all the fields');
     }
 
-    db.select('username', 'password', 'totalquestions', 'correct', 'wrong')
+    pool.select('username', 'password', 'totalquestions', 'correct', 'wrong')
         .from('users')
         .where({ username })
         .first()
@@ -116,7 +116,7 @@ app.post('/login-user', (req, res) => {
 app.post('/update-score', (req, res) => {
     const { username, totalQuestions, correctAnswers, wrongAnswers } = req.body;
 
-    db('users')
+    pool('users')
         .where({ username })
         .update({
             totalquestions: totalQuestions,
