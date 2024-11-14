@@ -10,19 +10,35 @@ const { Pool } = pg;
 
 const pool = new Pool({
   connectionString: process.env.POSTGRES_URL,
-});
+})
 
 pool.connect((err) => {
-    if (err) throw err;
-    console.log("Connected to postgres");
-});
+    if (err) throw err
+    console.log("Connected to postgres")
+})
 
-module.exports = pool;
+module.exports = pool
 
 let initialPath = path.join(__dirname, "public");
 
 app.use(bodyParser.json());
 app.use(express.static(initialPath));
+
+app.get('/', (req, res) => {
+    res.sendFile(path.join(initialPath, "index.html"));
+});
+
+app.get('/register', (req, res) => {
+    res.sendFile(path.join(initialPath, "register.html"));
+});
+
+app.get('/index', (req, res) => {
+    res.sendFile(path.join(initialPath, "index.html"));
+});
+
+app.get('/pertanyaan', (req, res) => {
+    res.sendFile(path.join(initialPath, "pertanyaan.html"));
+});
 
 app.post('/register-user', (req, res) => {
     const { username, password } = req.body;
